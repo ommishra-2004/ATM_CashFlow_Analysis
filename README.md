@@ -1,4 +1,4 @@
-<![CDATA[<div align="center">
+ <div align="center">
 
 <img src="assets/banner.png" alt="ATM Cash Flow Forecasting" width="100%"/>
 
@@ -11,9 +11,9 @@
 
 <br/>
 
-<a href="#-quick-start"><img src="https://img.shields.io/badge/Quick_Start-▶-00C853?style=flat-square&labelColor=1a1a2e" alt="Quick Start"/></a>&nbsp;&nbsp;
-<a href="#-results"><img src="https://img.shields.io/badge/Results-📊-7C4DFF?style=flat-square&labelColor=1a1a2e" alt="Results"/></a>&nbsp;&nbsp;
-<a href="#-models"><img src="https://img.shields.io/badge/Models-🤖-00B0FF?style=flat-square&labelColor=1a1a2e" alt="Models"/></a>&nbsp;&nbsp;
+<a href="#quick-start"><img src="https://img.shields.io/badge/Quick_Start-Start-00C853?style=flat-square&labelColor=1a1a2e" alt="Quick Start"/></a>&nbsp;&nbsp;
+<a href="#results"><img src="https://img.shields.io/badge/Results-Data-7C4DFF?style=flat-square&labelColor=1a1a2e" alt="Results"/></a>&nbsp;&nbsp;
+<a href="#models"><img src="https://img.shields.io/badge/Models-ML-00B0FF?style=flat-square&labelColor=1a1a2e" alt="Models"/></a>&nbsp;&nbsp;
 <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-E0E0E0?style=flat-square&labelColor=1a1a2e" alt="License"/></a>
 
 <br/>
@@ -40,7 +40,7 @@
 
 <br/>
 
-## 📌 At a Glance
+## At a Glance
 
 <table>
 <tr>
@@ -59,11 +59,11 @@
 
 | | |
 |:--|:--|
-| 📍 ATMs forecasted | **111** |
-| 📅 Forecast horizon | **56 days** |
-| 📉 Avg MAE | **3.32** |
-| 🎯 ATMs with MAE < 4.0 | **77.5%** |
-| ⚡ Best single ATM MAE | **1.41** |
+| ATMs forecasted | **111** |
+| Forecast horizon | **56 days** |
+| Avg MAE | **3.32** |
+| ATMs with MAE < 4.0 | **77.5%** |
+| Best single ATM MAE | **1.41** |
 
 </td>
 </tr>
@@ -71,7 +71,7 @@
 
 <br/>
 
-## 📊 Results
+## Results
 
 <div align="center">
 <img src="regression_diagnostics.png" alt="Actual vs Predicted withdrawals and prediction error scatter" width="95%"/>
@@ -82,7 +82,7 @@
 <br/>
 
 <details>
-<summary><b>🏅 Top 5 best-predicted ATMs</b></summary>
+<summary><b>Top 5 best-predicted ATMs</b></summary>
 <br/>
 
 | Rank | ATM | Avg Actual | Avg Predicted | MAE | MAPE |
@@ -96,10 +96,10 @@
 </details>
 
 <details>
-<summary><b>📈 MAE distribution across all 111 ATMs</b></summary>
+<summary><b>MAE distribution across all 111 ATMs</b></summary>
 <br/>
 
-```
+```text
  MAE < 2  ▓▓░░░░░░░░░░░░░░░░░░   11 ATMs  ( 9.9%)
  MAE < 3  ▓▓▓▓▓▓▓▓▓░░░░░░░░░░░   50 ATMs  (45.0%)
  MAE < 4  ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░░░░   86 ATMs  (77.5%)
@@ -113,11 +113,11 @@
 
 <br/>
 
-## 🤖 Models
+## Models
 
 Six models are trained and compared. The final predictions come from a **weighted ensemble** of the top four.
 
-```
+```text
                     ┌──────────┐
                     │ Raw Data │  NN5 Dataset · 111 ATMs · 791 days each
                     └────┬─────┘
@@ -129,7 +129,7 @@ Six models are trained and compared. The final predictions come from a **weighte
           ┌──────────────┼──────────────┐
           │              │              │
     ┌─────▼─────┐  ┌─────▼─────┐  ┌────▼────┐
-    │ Classical  │  │ Tree-based│  │ Neural  │
+    │ Classical │  │ Tree-based│  │ Neural  │
     │           │  │           │  │ Network │
     │ · ARIMA   │  │ · XGBoost │  │         │
     │ · SARIMAX │  │ · LightGBM│  │ · MLP   │
@@ -160,7 +160,7 @@ Six models are trained and compared. The final predictions come from a **weighte
 
 <br/>
 
-## ⚙️ Features Engineered
+## Features Engineered
 
 > 30+ features are extracted from each ATM's raw withdrawal series.
 
@@ -168,7 +168,7 @@ Six models are trained and compared. The final predictions come from a **weighte
 <tr>
 <td width="33%">
 
-**🗓 Calendar**
+**Calendar**
 - `DayOfWeek`
 - `Is_Weekend`
 - `Month`, `Quarter`
@@ -179,7 +179,7 @@ Six models are trained and compared. The final predictions come from a **weighte
 </td>
 <td width="33%">
 
-**⏪ Lags**
+**Lags**
 - Lag 1, 7, 14, 21, 28
 - `Same_Day_Last_Week`
 - `Week_Over_Week_Change`
@@ -188,7 +188,7 @@ Six models are trained and compared. The final predictions come from a **weighte
 </td>
 <td width="33%">
 
-**📊 Rolling Stats**
+**Rolling Stats**
 - Mean (7d, 14d, 28d)
 - Std Dev (7d, 14d, 28d)
 - Min (7d, 14d, 28d)
@@ -202,7 +202,7 @@ Six models are trained and compared. The final predictions come from a **weighte
 
 <br/>
 
-## 📂 Dataset
+## Dataset
 
 **NN5 Forecasting Competition** — a well-known benchmark for time series forecasting from the banking domain.
 
@@ -218,9 +218,9 @@ Six models are trained and compared. The final predictions come from a **weighte
 
 <br/>
 
-## 📁 Project Structure
+## Project Structure
 
-```
+```text
 ATM_CashFlow_Analysis/
 ├── Atm_CashFlow_Analysis.ipynb            ← Main pipeline (train, evaluate, export)
 ├── Atm_CashFlow_Analysis_executed.ipynb   ← Pre-run version with all outputs
@@ -248,11 +248,11 @@ ATM_CashFlow_Analysis/
 
 <br/>
 
-## 🚀 Quick Start
+## Quick Start
 
 ```bash
 # Clone
-git clone https://github.com/ommishra-2004/ATM_CashFlow_Analysis.git
+git clone [https://github.com/ommishra-2004/ATM_CashFlow_Analysis.git](https://github.com/ommishra-2004/ATM_CashFlow_Analysis.git)
 cd ATM_CashFlow_Analysis
 
 # Set up environment
@@ -286,9 +286,9 @@ pred = (weights['xgb'] * xgb.predict(X)
 
 <br/>
 
-## 🧰 Dependencies
+## Dependencies
 
-```
+```text
 pandas · numpy · scikit-learn · xgboost · lightgbm · optuna
 statsmodels · matplotlib · seaborn · scipy · holidays · joblib
 ```
@@ -297,7 +297,7 @@ Full list with minimum versions in [`requirements.txt`](requirements.txt).
 
 <br/>
 
-## 🔮 Roadmap
+## Roadmap
 
 - [ ] LSTM / Temporal Fusion Transformer for deep sequence modeling
 - [ ] External features — weather, local events, foot traffic
@@ -308,7 +308,7 @@ Full list with minimum versions in [`requirements.txt`](requirements.txt).
 
 <br/>
 
-## 🤝 Contributing
+## Contributing
 
 ```bash
 fork → branch → commit → push → pull request
@@ -318,7 +318,7 @@ All contributions welcome — bug fixes, new models, better features, docs.
 
 <br/>
 
-## 📄 License
+## License
 
 [MIT](LICENSE)
 
@@ -328,7 +328,6 @@ All contributions welcome — bug fixes, new models, better features, docs.
 
 <div align="center">
 
-<sub>Built for the financial forecasting community &nbsp;·&nbsp; If this helped you, leave a ⭐</sub>
+<sub>Built for the financial forecasting community &nbsp;·&nbsp; If this helped you, consider leaving a star on the repository.</sub>
 
 </div>
-]]>
