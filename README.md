@@ -126,8 +126,8 @@ Six models are trained and compared. The final predictions come from a **weighte
                     │ Features │  30+ engineered features
                     └────┬─────┘  (lags, rolling stats, calendar, UK holidays)
                          │
-          ┌──────────────┼──────────────┐
-          │              │              │
+          ┌──────────────┼─────────────┐
+          │              │             │
     ┌─────▼─────┐  ┌─────▼─────┐  ┌────▼────┐
     │ Classical │  │ Tree-based│  │ Neural  │
     │           │  │           │  │ Network │
@@ -135,11 +135,11 @@ Six models are trained and compared. The final predictions come from a **weighte
     │ · SARIMAX │  │ · LightGBM│  │ · MLP   │
     │           │  │ · Rand.For│  │         │
     └───────────┘  └─────┬─────┘  └────┬────┘
-                         │              │
-                    ┌────▼──────────────▼────┐
+                         │             │
+                    ┌────▼─────────────▼───-─┐
                     │   Weighted Ensemble    │
                     │   (optimized weights)  │
-                    └───────────────────────┘
+                    └──────────────────────-─┘
 ```
 
 <details>
@@ -224,7 +224,6 @@ Six models are trained and compared. The final predictions come from a **weighte
 ATM_CashFlow_Analysis/
 ├── Atm_CashFlow_Analysis.ipynb            ← Main pipeline (train, evaluate, export)
 ├── Atm_CashFlow_Analysis_executed.ipynb   ← Pre-run version with all outputs
-├── Data_Mining_Project.ipynb              ← K-Means clustering analysis
 │
 ├── nn5_daily_dataset_without_missing_values.tsf   ← Raw dataset
 ├── atm_forecast_results.csv               ← 6,771 daily forecasts
