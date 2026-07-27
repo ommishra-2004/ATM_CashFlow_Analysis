@@ -1,474 +1,334 @@
 <![CDATA[<div align="center">
 
-# 🏧 ATM Cash Flow Forecasting & Analysis
+<img src="assets/banner.png" alt="ATM Cash Flow Forecasting" width="100%"/>
 
-### *Predicting Daily ATM Withdrawals Using Ensemble Machine Learning & Time Series Models*
+<br/>
+<br/>
 
-[![Python](https://img.shields.io/badge/Python-3.8+-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
-[![Jupyter](https://img.shields.io/badge/Jupyter-Notebook-F37626?style=for-the-badge&logo=jupyter&logoColor=white)](https://jupyter.org)
-[![scikit-learn](https://img.shields.io/badge/scikit--learn-ML-F7931E?style=for-the-badge&logo=scikit-learn&logoColor=white)](https://scikit-learn.org)
-[![XGBoost](https://img.shields.io/badge/XGBoost-Boosting-189FDD?style=for-the-badge)](https://xgboost.readthedocs.io)
-[![LightGBM](https://img.shields.io/badge/LightGBM-Gradient%20Boost-02569B?style=for-the-badge)](https://lightgbm.readthedocs.io)
-[![License: MIT](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](LICENSE)
+# ATM Cash Flow Forecasting
+
+**Predicting daily cash withdrawals across 111 UK ATMs using ensemble machine learning**
 
 <br/>
 
-<img src="regression_diagnostics.png" alt="Regression Diagnostics — Actual vs Predicted & Error Scatter" width="90%"/>
+<a href="#-quick-start"><img src="https://img.shields.io/badge/Quick_Start-▶-00C853?style=flat-square&labelColor=1a1a2e" alt="Quick Start"/></a>&nbsp;&nbsp;
+<a href="#-results"><img src="https://img.shields.io/badge/Results-📊-7C4DFF?style=flat-square&labelColor=1a1a2e" alt="Results"/></a>&nbsp;&nbsp;
+<a href="#-models"><img src="https://img.shields.io/badge/Models-🤖-00B0FF?style=flat-square&labelColor=1a1a2e" alt="Models"/></a>&nbsp;&nbsp;
+<a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-E0E0E0?style=flat-square&labelColor=1a1a2e" alt="License"/></a>
 
 <br/>
 
-*End-to-end ML pipeline forecasting cash demand across 111 UK ATMs — from raw time series data to production-ready ensemble predictions.*
-
----
+<table>
+<tr>
+<td><b>Stack</b></td>
+<td>
+<img src="https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white" alt="Python"/>
+<img src="https://img.shields.io/badge/Jupyter-F37626?style=flat-square&logo=jupyter&logoColor=white" alt="Jupyter"/>
+<img src="https://img.shields.io/badge/XGBoost-189FDD?style=flat-square" alt="XGBoost"/>
+<img src="https://img.shields.io/badge/LightGBM-02569B?style=flat-square" alt="LightGBM"/>
+<img src="https://img.shields.io/badge/scikit--learn-F7931E?style=flat-square&logo=scikit-learn&logoColor=white" alt="scikit-learn"/>
+<img src="https://img.shields.io/badge/Optuna-2D3F50?style=flat-square" alt="Optuna"/>
+</td>
+</tr>
+</table>
 
 </div>
 
-## 📋 Table of Contents
+<br/>
 
-- [Overview](#-overview)
-- [Key Results](#-key-results)
-- [Architecture](#-architecture)
-- [Dataset](#-dataset)
-- [Feature Engineering](#-feature-engineering)
-- [Models Implemented](#-models-implemented)
-- [Evaluation Metrics](#-evaluation-metrics)
-- [Project Structure](#-project-structure)
-- [Getting Started](#-getting-started)
-- [Usage](#-usage)
-- [Results Deep Dive](#-results-deep-dive)
-- [Future Improvements](#-future-improvements)
-- [Contributing](#-contributing)
-- [License](#-license)
+> **The Problem:** ATMs run out of cash → customers leave frustrated. ATMs hold too much cash → capital sits idle costing banks millions. This project forecasts exactly how much cash each ATM needs, each day, 56 days into the future.
 
----
+<br/>
 
-## 🎯 Overview
+## 📌 At a Glance
 
-Cash management at ATMs is a critical challenge in banking operations. **Overstocking** ties up capital unnecessarily, while **understocking** leads to cash-outs and customer dissatisfaction. This project builds an **end-to-end machine learning pipeline** to forecast daily cash withdrawals across a network of **111 ATMs** in the United Kingdom.
+<table>
+<tr>
+<td width="50%">
 
-### Problem Statement
-> *Given historical daily withdrawal data for 111 ATMs over ~2 years, forecast the next 56 days of withdrawals per ATM to optimize cash replenishment schedules.*
+**What it does**
+- Forecasts daily withdrawal amounts for **111 ATMs**
+- Compares **6 different models** (ARIMA → Neural Networks)
+- Uses a **weighted ensemble** for production predictions
+- Clusters ATMs into **4 behavioral groups** via K-Means
 
-### Approach
+</td>
+<td width="50%">
 
-The project combines **classical time series models** (ARIMA, SARIMAX) with **global machine learning models** (XGBoost, Random Forest, LightGBM, MLP) trained on panel data, culminating in a **weighted ensemble** that leverages the strengths of each approach.
+**Key numbers**
 
-### Highlights
+| | |
+|:--|:--|
+| 📍 ATMs forecasted | **111** |
+| 📅 Forecast horizon | **56 days** |
+| 📉 Avg MAE | **3.32** |
+| 🎯 ATMs with MAE < 4.0 | **77.5%** |
+| ⚡ Best single ATM MAE | **1.41** |
 
-- 🔬 **Comprehensive EDA** — Distribution analysis, weekly seasonality decomposition, stationarity testing (ADF)
-- ⚙️ **Rich Feature Engineering** — 30+ features including calendar, lag, rolling statistics, and domain-specific (UK holidays, payday)
-- 🤖 **6 Models Compared** — From classical ARIMA to gradient-boosted trees and neural networks
-- 🧬 **Hyperparameter Optimization** — Bayesian optimization via Optuna with TimeSeriesSplit cross-validation
-- 📊 **K-Means Clustering** — Behavioral segmentation of ATMs into 4 distinct usage clusters
-- 🏆 **Weighted Ensemble** — Optimal blending of top models for robust production forecasts
-- 📉 **Concept Drift Monitoring** — Kolmogorov-Smirnov tests to detect feature distribution shifts
+</td>
+</tr>
+</table>
 
----
+<br/>
 
-## 🏆 Key Results
+## 📊 Results
 
 <div align="center">
-
-| Metric | Value |
-|:-------|:------|
-| **ATMs Forecasted** | 111 |
-| **Forecast Horizon** | 56 days |
-| **Average MAE** | **3.32** (cash units) |
-| **Median MAE** | **3.09** (cash units) |
-| **Best ATM MAE** | 1.41 (ATM T103) |
-| **ATMs with MAE < 3.0** | 50 / 111 (45.0%) |
-| **ATMs with MAE < 4.0** | 86 / 111 (77.5%) |
-
+<img src="regression_diagnostics.png" alt="Actual vs Predicted withdrawals and prediction error scatter" width="95%"/>
+<br/>
+<sub><b>Left:</b> Actual vs model predictions for ATM T1 over 56-day test window &nbsp;·&nbsp; <b>Right:</b> Ensemble prediction error scatter</sub>
 </div>
 
-### Top 5 Best Predicted ATMs
+<br/>
 
-| ATM | Avg Actual | Avg Predicted | MAE | MAPE |
-|-----|-----------|--------------|-----|------|
-| T103 | 8.83 | 8.77 | **1.41** | 16.81% |
-| T27 | 7.76 | 8.00 | **1.44** | 25.35% |
-| T55 | 10.89 | 10.99 | **1.49** | 19.93% |
-| T53 | 11.66 | 11.65 | **1.66** | 15.99% |
-| T22 | 18.99 | 18.65 | **1.70** | 9.34% |
+<details>
+<summary><b>🏅 Top 5 best-predicted ATMs</b></summary>
+<br/>
 
----
+| Rank | ATM | Avg Actual | Avg Predicted | MAE | MAPE |
+|:----:|:---:|:----------:|:-------------:|:---:|:----:|
+| 1 | T103 | 8.83 | 8.77 | **1.41** | 16.8% |
+| 2 | T27 | 7.76 | 8.00 | **1.44** | 25.4% |
+| 3 | T55 | 10.89 | 10.99 | **1.49** | 19.9% |
+| 4 | T53 | 11.66 | 11.65 | **1.66** | 16.0% |
+| 5 | T22 | 18.99 | 18.65 | **1.70** | 9.3% |
 
-## 🏗 Architecture
+</details>
+
+<details>
+<summary><b>📈 MAE distribution across all 111 ATMs</b></summary>
+<br/>
 
 ```
-┌────────────────────────────────────────────────────────────────────────┐
-│                      ATM Cash Flow Forecasting Pipeline               │
-├────────────────────────────────────────────────────────────────────────┤
-│                                                                        │
-│  ┌──────────────┐    ┌──────────────┐    ┌──────────────────────────┐  │
-│  │  Raw Data     │───▶│  Data Parser  │───▶│  Long-Format DataFrame   │  │
-│  │  (.tsf file)  │    │  (Custom)     │    │  (Date, ATM_ID, Amount)  │  │
-│  └──────────────┘    └──────────────┘    └──────────┬───────────────┘  │
-│                                                      │                  │
-│                                         ┌────────────▼────────────┐    │
-│                                         │   Exploratory Analysis  │    │
-│                                         │  • Distribution plots   │    │
-│                                         │  • Seasonal decompose   │    │
-│                                         │  • ADF stationarity     │    │
-│                                         │  • K-Means clustering   │    │
-│                                         └────────────┬────────────┘    │
-│                                                      │                  │
-│                                         ┌────────────▼────────────┐    │
-│                                         │  Feature Engineering    │    │
-│                                         │  • Calendar features    │    │
-│                                         │  • Lag features (1–28d) │    │
-│                                         │  • Rolling statistics   │    │
-│                                         │  • UK holidays/payday   │    │
-│                                         └────────────┬────────────┘    │
-│                                                      │                  │
-│                          ┌───────────────────────────┼──────────┐      │
-│                          │                           │          │      │
-│                ┌─────────▼──────┐  ┌─────────────────▼──┐  ┌───▼───┐  │
-│                │  Time Series   │  │  ML Models (Global) │  │  MLP  │  │
-│                │  ARIMA/SARIMAX │  │  XGBoost │ RF │ LGBM│  │  (NN) │  │
-│                └─────────┬──────┘  └─────────────────┬──┘  └───┬───┘  │
-│                          │                           │          │      │
-│                          └───────────────┬───────────┘──────────┘      │
-│                                          │                             │
-│                              ┌───────────▼───────────┐                 │
-│                              │  Weighted Ensemble     │                 │
-│                              │  (Optimized Weights)   │                 │
-│                              └───────────┬───────────┘                 │
-│                                          │                             │
-│                              ┌───────────▼───────────┐                 │
-│                              │  Evaluation & Output   │                 │
-│                              │  MAE │ RMSE │ MAPE │R² │                │
-│                              └───────────────────────┘                 │
-└────────────────────────────────────────────────────────────────────────┘
+ MAE < 2  ▓▓░░░░░░░░░░░░░░░░░░   11 ATMs  ( 9.9%)
+ MAE < 3  ▓▓▓▓▓▓▓▓▓░░░░░░░░░░░   50 ATMs  (45.0%)
+ MAE < 4  ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░░░░   86 ATMs  (77.5%)
+ MAE < 5  ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░░  ~96 ATMs  (86.5%)
+ All      ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓  111 ATMs
 ```
 
----
+**Median MAE: 3.09** &nbsp;·&nbsp; **Mean MAE: 3.32** &nbsp;·&nbsp; **Best: 1.41** &nbsp;·&nbsp; **Worst: 7.84**
 
-## 📊 Dataset
+</details>
 
-This project uses the **NN5 Forecasting Competition Dataset**, a well-known benchmark in the time series forecasting community.
+<br/>
 
-| Property | Details |
-|:---------|:--------|
-| **Source** | [NN5 Competition](http://www.neural-forecasting-competition.com/NN5/) / [Monash Time Series Repository](https://forecastingdata.org/) |
-| **Domain** | Banking — UK ATM Cash Withdrawals |
-| **Format** | `.tsf` (Monash Time Series Forecasting format) |
-| **Time Range** | March 18, 1996 — May 17, 1998 |
-| **Frequency** | Daily |
-| **Number of Series** | 111 ATMs (`T1` – `T111`) |
-| **Observations per ATM** | 791 daily records |
-| **Total Records** | 87,801 (panel format) |
-| **Forecast Horizon** | 56 days |
-| **Missing Values** | Pre-imputed using same-day-of-week median |
+## 🤖 Models
 
-### Data Characteristics
-- **Strong weekly seasonality** — Fridays consistently show the highest withdrawals; Sundays the lowest
-- **Variable volatility** — Some ATMs (e.g., T68) exhibit high variance while others (e.g., T103) are highly predictable
-- **Trend patterns** — Subtle upward trends observed in several high-traffic ATMs
+Six models are trained and compared. The final predictions come from a **weighted ensemble** of the top four.
 
----
+```
+                    ┌──────────┐
+                    │ Raw Data │  NN5 Dataset · 111 ATMs · 791 days each
+                    └────┬─────┘
+                         │
+                    ┌────▼─────┐
+                    │ Features │  30+ engineered features
+                    └────┬─────┘  (lags, rolling stats, calendar, UK holidays)
+                         │
+          ┌──────────────┼──────────────┐
+          │              │              │
+    ┌─────▼─────┐  ┌─────▼─────┐  ┌────▼────┐
+    │ Classical  │  │ Tree-based│  │ Neural  │
+    │           │  │           │  │ Network │
+    │ · ARIMA   │  │ · XGBoost │  │         │
+    │ · SARIMAX │  │ · LightGBM│  │ · MLP   │
+    │           │  │ · Rand.For│  │         │
+    └───────────┘  └─────┬─────┘  └────┬────┘
+                         │              │
+                    ┌────▼──────────────▼────┐
+                    │   Weighted Ensemble    │
+                    │   (optimized weights)  │
+                    └───────────────────────┘
+```
 
-## ⚙️ Feature Engineering
+<details>
+<summary><b>Model details (click to expand)</b></summary>
+<br/>
 
-A total of **30+ features** are engineered from the raw withdrawal time series:
+| Model | Type | Config | Notes |
+|:------|:-----|:-------|:------|
+| **ARIMA** | Univariate | (1,1,1) per ATM | Baseline; no cross-ATM learning |
+| **SARIMAX** | Univariate | (p,d,q)×(P,D,Q,**7**) | Weekly seasonal component |
+| **XGBoost** | Global / Panel | Optuna-tuned, 50 trials | Predicts `Withdrawal_Delta`; 5-fold `TimeSeriesSplit` CV |
+| **Random Forest** | Global / Panel | 200 estimators | Robust to outliers |
+| **LightGBM** | Global / Panel | Histogram-based | Fastest training |
+| **MLP** | Global / Panel | `MLPRegressor` | Captures nonlinear patterns |
+| **Ensemble** | Meta-model | Weighted blend of top 4 | Lowest variance, production model |
 
-### Calendar & Temporal Features
-| Feature | Description |
-|:--------|:------------|
-| `DayOfWeek` | Day of the week (0–6) |
-| `Is_Weekend` | Binary flag for Saturday/Sunday |
-| `Month` | Month of year (1–12) |
-| `DayOfMonth` | Day of the month (1–31) |
-| `Quarter` | Calendar quarter (1–4) |
-| `DayOfYear` | Ordinal day of the year (1–366) |
-| `Is_UK_Holiday` | Binary flag for UK bank holidays (via `holidays` library) |
-| `PayDay` | Binary flag for end-of-month / common payday window (25th–31st) |
+</details>
 
-### Lag Features
-| Feature | Description |
-|:--------|:------------|
-| `Withdrawal_Lag_1` | Previous day's withdrawal |
-| `Withdrawal_Lag_7` | Same day last week |
-| `Withdrawal_Lag_14` | Same day 2 weeks ago |
-| `Withdrawal_Lag_21` | Same day 3 weeks ago |
-| `Withdrawal_Lag_28` | Same day 4 weeks ago |
-| `Same_Day_Last_Week` | Alias for lag-7 |
-| `Week_Over_Week_Change` | Difference between current and lag-7 |
+<br/>
 
-### Rolling Statistics
-| Feature | Description |
-|:--------|:------------|
-| `Rolling_Mean_7d / 14d / 28d` | Moving average over 7, 14, 28 days |
-| `Rolling_Std_7d / 14d / 28d` | Moving standard deviation |
-| `Rolling_Min_7d / 14d / 28d` | Moving minimum |
-| `Rolling_Max_7d / 14d / 28d` | Moving maximum |
+## ⚙️ Features Engineered
 
-### Target Engineering
-| Feature | Description |
-|:--------|:------------|
-| `Withdrawal_Delta` | First difference: `W(t) - W(t-1)` for stationarity |
+> 30+ features are extracted from each ATM's raw withdrawal series.
 
----
+<table>
+<tr>
+<td width="33%">
 
-## 🤖 Models Implemented
+**🗓 Calendar**
+- `DayOfWeek`
+- `Is_Weekend`
+- `Month`, `Quarter`
+- `DayOfMonth`, `DayOfYear`
+- `Is_UK_Holiday`
+- `PayDay` (25th–31st)
 
-### 1. Classical Time Series
+</td>
+<td width="33%">
 
-#### ARIMA (AutoRegressive Integrated Moving Average)
-- **Configuration**: ARIMA(1, 1, 1) fitted per individual ATM
-- **Strength**: Captures autocorrelation in stationary series
-- **Limitation**: No cross-ATM learning; sensitive to parameter selection
+**⏪ Lags**
+- Lag 1, 7, 14, 21, 28
+- `Same_Day_Last_Week`
+- `Week_Over_Week_Change`
+- `Withdrawal_Delta` (1st diff)
 
-#### SARIMAX (Seasonal ARIMA with Exogenous Variables)
-- **Configuration**: `(p,d,q) × (P,D,Q,7)` — weekly seasonal component
-- **Strength**: Explicitly models 7-day weekly seasonality
-- **Limitation**: Computationally expensive to fit across all 111 ATMs
+</td>
+<td width="33%">
 
-### 2. Machine Learning Models (Global / Panel-Data)
+**📊 Rolling Stats**
+- Mean (7d, 14d, 28d)
+- Std Dev (7d, 14d, 28d)
+- Min (7d, 14d, 28d)
+- Max (7d, 14d, 28d)
 
-#### XGBoost Regressor
-- **Hyperparameter Tuning**: Optuna Bayesian optimization (50 trials)
-- **Cross-Validation**: 5-fold `TimeSeriesSplit`
-- **Target**: Predicts `Withdrawal_Delta` (differenced target)
-- **Key Strength**: Handles nonlinear interactions and feature importance ranking
+</td>
+</tr>
+</table>
 
-#### Random Forest Regressor
-- **Configuration**: 200 estimators
-- **Approach**: Bagged decision tree ensemble on panel features
-- **Key Strength**: Robust to outliers and overfitting
+**Top predictors** (by tree-model feature importance): `Withdrawal_Lag_7` > `Withdrawal_Lag_1` > `Rolling_Mean_7d` > `Rolling_Mean_14d` > `DayOfWeek`
 
-#### LightGBM Regressor
-- **Approach**: Histogram-based gradient boosting
-- **Key Strength**: Fast training on large panel datasets with categorical support
+<br/>
 
-#### MLP Neural Network
-- **Implementation**: `sklearn.neural_network.MLPRegressor`
-- **Approach**: Multi-layer perceptron for nonlinear function approximation
-- **Key Strength**: Captures complex nonlinear withdrawal patterns
+## 📂 Dataset
 
-### 3. Ensemble Model
-- **Strategy**: Weighted average of XGBoost, Random Forest, LightGBM, and MLP predictions
-- **Weight Optimization**: Optimal weights stored in `ensemble_config.pkl`
-- **Key Strength**: Reduces variance and leverages complementary model strengths
+**NN5 Forecasting Competition** — a well-known benchmark for time series forecasting from the banking domain.
 
-### 4. ATM Clustering (Data Mining)
-- **Algorithm**: K-Means Clustering (K=4)
-- **Features Used**: Mean withdrawal, std deviation, weekend usage ratio, volatility
-- **Purpose**: Behavioral segmentation of ATMs for cluster-specific analysis
+| Property | Value |
+|:---------|:------|
+| Source | [NN5 Competition](http://www.neural-forecasting-competition.com/NN5/) / [Monash Repository](https://forecastingdata.org/) |
+| Domain | UK ATM cash withdrawals |
+| ATMs | 111 (`T1`–`T111`) |
+| Period | March 1996 — May 1998 (791 days each) |
+| Total records | 87,801 (panel format) |
+| Forecast horizon | 56 days |
+| Format | `.tsf` (Monash Time Series Forecasting) |
 
----
-
-## 📏 Evaluation Metrics
-
-| Metric | Formula | Purpose |
-|:-------|:--------|:--------|
-| **MAE** | `mean(\|actual - predicted\|)` | Primary metric — average absolute forecast error |
-| **RMSE** | `sqrt(mean((actual - predicted)²))` | Penalizes large errors more heavily |
-| **MAPE** | `mean(\|actual - predicted\| / actual) × 100` | Percentage error (with safe division threshold) |
-| **R² Score** | `1 - SS_res / SS_tot` | Proportion of variance explained by the model |
-
-### Concept Drift Detection
-- **Kolmogorov-Smirnov Test** (`scipy.stats.ks_2samp`): Monitors distribution shifts between training and test periods to detect potential model degradation
-
----
+<br/>
 
 ## 📁 Project Structure
 
 ```
 ATM_CashFlow_Analysis/
+├── Atm_CashFlow_Analysis.ipynb            ← Main pipeline (train, evaluate, export)
+├── Atm_CashFlow_Analysis_executed.ipynb   ← Pre-run version with all outputs
+├── Data_Mining_Project.ipynb              ← K-Means clustering analysis
 │
-├── 📓 Atm_CashFlow_Analysis.ipynb          # Main notebook — full ML pipeline
-├── 📓 Atm_CashFlow_Analysis_executed.ipynb  # Pre-executed version with outputs
-├── 📓 Data_Mining_Project.ipynb             # K-Means clustering & data mining
+├── nn5_daily_dataset_without_missing_values.tsf   ← Raw dataset
+├── atm_forecast_results.csv               ← 6,771 daily forecasts
+├── atm_performance_summary.csv            ← Per-ATM metrics (111 rows)
+├── regression_diagnostics.png             ← Actual vs Predicted plots
 │
-├── 📊 nn5_daily_dataset_without_missing_values.tsf   # Raw dataset (NN5 competition)
+├── models/
+│   ├── xgboost_model.pkl                  ← Trained XGBoost (1.6 MB)
+│   ├── lightgbm_model.pkl                 ← Trained LightGBM (3 MB)
+│   ├── mlp_model.pkl                      ← Trained MLP (339 KB)
+│   ├── feature_scaler.pkl                 ← Fitted StandardScaler
+│   ├── label_encoder.pkl                  ← ATM ID encoder
+│   └── ensemble_config.pkl                ← Ensemble weights
 │
-├── 📈 atm_forecast_results.csv              # Daily forecasts — 6,771 rows
-│                                             #   (Date, ATM_ID, Actual, Predicted, Error)
-├── 📈 atm_performance_summary.csv           # Per-ATM aggregated metrics — 111 ATMs
-│                                             #   (ATM_ID, Avg_Actual, Avg_Predicted, MAE, MAPE)
-├── 🖼️ regression_diagnostics.png            # Actual vs Predicted & Error scatter plots
-│
-├── models/                                   # Serialized trained models
-│   ├── xgboost_model.pkl                     #   XGBoost regressor (~1.6 MB)
-│   ├── random_forest_model.pkl               #   Random Forest regressor (~503 MB)
-│   ├── lightgbm_model.pkl                    #   LightGBM regressor (~3 MB)
-│   ├── mlp_model.pkl                         #   MLP neural network (~339 KB)
-│   ├── feature_scaler.pkl                    #   StandardScaler (fitted)
-│   ├── label_encoder.pkl                     #   LabelEncoder for ATM IDs
-│   └── ensemble_config.pkl                   #   Ensemble model weights
-│
-└── README.md                                 # This file
+├── requirements.txt
+├── LICENSE
+└── README.md
 ```
 
----
+> **Note:** `random_forest_model.pkl` (503 MB) is excluded from the repo due to GitHub's file size limit. Regenerate it by running the main notebook.
 
-## 🚀 Getting Started
+<br/>
 
-### Prerequisites
+## 🚀 Quick Start
 
-- **Python 3.8+**
-- **Jupyter Notebook** or **JupyterLab**
+```bash
+# Clone
+git clone https://github.com/ommishra-2004/ATM_CashFlow_Analysis.git
+cd ATM_CashFlow_Analysis
 
-### Installation
+# Set up environment
+python -m venv venv && source venv/bin/activate
 
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/<your-username>/ATM_CashFlow_Analysis.git
-   cd ATM_CashFlow_Analysis
-   ```
+# Install dependencies
+pip install -r requirements.txt
 
-2. **Create a virtual environment** (recommended)
-   ```bash
-   python -m venv venv
-   source venv/bin/activate  # On Windows: venv\Scripts\activate
-   ```
+# Launch
+jupyter notebook Atm_CashFlow_Analysis.ipynb
+```
 
-3. **Install dependencies**
-   ```bash
-   pip install -r requirements.txt
-   ```
+### Use pre-trained models directly
 
-4. **Launch Jupyter**
-   ```bash
-   jupyter notebook
-   ```
-
-### Dependencies
-
-| Package | Version | Purpose |
-|:--------|:--------|:--------|
-| `pandas` | ≥ 1.3 | Data manipulation & analysis |
-| `numpy` | ≥ 1.21 | Numerical computing |
-| `scikit-learn` | ≥ 1.0 | ML models, preprocessing, evaluation |
-| `xgboost` | ≥ 1.5 | XGBoost gradient boosting |
-| `lightgbm` | ≥ 3.3 | LightGBM gradient boosting |
-| `optuna` | ≥ 3.0 | Bayesian hyperparameter optimization |
-| `statsmodels` | ≥ 0.13 | ARIMA, SARIMAX, seasonal decomposition |
-| `matplotlib` | ≥ 3.5 | Static visualizations |
-| `seaborn` | ≥ 0.11 | Statistical plots |
-| `scipy` | ≥ 1.7 | Statistical tests (KS test) |
-| `holidays` | ≥ 0.14 | UK bank holiday calendar |
-| `joblib` | ≥ 1.1 | Model serialization |
-
----
-
-## 💡 Usage
-
-### Run the Full Pipeline
-Open `Atm_CashFlow_Analysis.ipynb` and execute all cells sequentially. The notebook will:
-
-1. **Parse** the `.tsf` dataset into a clean panel DataFrame
-2. **Explore** distributions, seasonality, and stationarity
-3. **Engineer** 30+ features (calendar, lag, rolling)
-4. **Train** XGBoost (with Optuna), Random Forest, LightGBM, and MLP models
-5. **Evaluate** across all 111 ATMs and export results
-6. **Save** trained models to the `models/` directory
-
-### Data Mining & Clustering
-Open `Data_Mining_Project.ipynb` for:
-- K-Means clustering of ATMs into 4 behavioral segments
-- Cluster profiling and visualization
-
-### Load Pre-trained Models
 ```python
 import joblib
 
-# Load models
-xgb_model = joblib.load('models/xgboost_model.pkl')
-rf_model = joblib.load('models/random_forest_model.pkl')
-lgbm_model = joblib.load('models/lightgbm_model.pkl')
-mlp_model = joblib.load('models/mlp_model.pkl')
-
-# Load preprocessing artifacts
+# Load
+xgb    = joblib.load('models/xgboost_model.pkl')
+lgbm   = joblib.load('models/lightgbm_model.pkl')
+mlp    = joblib.load('models/mlp_model.pkl')
 scaler = joblib.load('models/feature_scaler.pkl')
 encoder = joblib.load('models/label_encoder.pkl')
-ensemble_weights = joblib.load('models/ensemble_config.pkl')
+weights = joblib.load('models/ensemble_config.pkl')
+
+# Predict (after feature engineering)
+pred = (weights['xgb'] * xgb.predict(X)
+      + weights['lgbm'] * lgbm.predict(X)
+      + weights['mlp'] * mlp.predict(X))
 ```
 
----
+<br/>
 
-## 🔍 Results Deep Dive
-
-### Performance Distribution Across 111 ATMs
+## 🧰 Dependencies
 
 ```
-MAE Distribution:
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  MAE < 2.0  │██░░░░░░░░░░░░░░│  11 ATMs ( 9.9%)
-  MAE < 3.0  │████████░░░░░░░░│  50 ATMs (45.0%)
-  MAE < 4.0  │█████████████░░░│  86 ATMs (77.5%)
-  MAE < 5.0  │██████████████░░│  ~96 ATMs
-  All ATMs   │████████████████│ 111 ATMs
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-Overall:  Avg MAE = 3.32  |  Median MAE = 3.09
+pandas · numpy · scikit-learn · xgboost · lightgbm · optuna
+statsmodels · matplotlib · seaborn · scipy · holidays · joblib
 ```
 
-### Feature Importance (Top Predictors)
+Full list with minimum versions in [`requirements.txt`](requirements.txt).
 
-The global tree-based models consistently rank these features as the most important:
+<br/>
 
-1. 🥇 `Withdrawal_Lag_7` — Same day last week (strongest predictor due to weekly seasonality)
-2. 🥈 `Withdrawal_Lag_1` — Previous day's withdrawal
-3. 🥉 `Rolling_Mean_7d` — 7-day moving average
-4. `Rolling_Mean_14d` — 14-day moving average
-5. `DayOfWeek` — Day-of-week effect
-6. `Withdrawal_Lag_28` — Same day 4 weeks ago
-7. `Is_Weekend` — Weekend binary indicator
+## 🔮 Roadmap
 
-### Key Insights
+- [ ] LSTM / Temporal Fusion Transformer for deep sequence modeling
+- [ ] External features — weather, local events, foot traffic
+- [ ] Online learning for incremental model updates
+- [ ] Anomaly detection for unusual withdrawal patterns
+- [ ] REST API deployment with FastAPI
+- [ ] Interactive monitoring dashboard (Streamlit)
 
-- **Weekly seasonality dominates** — Lag-7 is the single strongest predictor across all tree models, confirming the strong day-of-week withdrawal pattern
-- **Global models outperform univariate** — Panel-data ML models learn shared patterns across ATMs, outperforming per-ATM ARIMA
-- **Ensemble smooths errors** — The weighted ensemble reduces extreme forecast errors compared to any single model
-- **High-volume ATMs are harder** — ATMs like T68 (avg ~43 units) show higher absolute error but proportionally reasonable MAPE
-- **Concept drift detected** — KS tests flagged distribution shifts in some features between training and test windows, informing retraining needs
-
----
-
-## 🔮 Future Improvements
-
-- [ ] **Deep Learning** — Implement LSTM / Temporal Fusion Transformer for sequence modeling
-- [ ] **External Data** — Integrate weather data, local events, and foot traffic
-- [ ] **Online Learning** — Incremental model updates as new data streams in
-- [ ] **Anomaly Detection** — Flag unusual withdrawal patterns (potential fraud or events)
-- [ ] **Deployment** — REST API with FastAPI/Flask for real-time inference
-- [ ] **Dashboard** — Interactive Streamlit/Dash dashboard for monitoring forecasts
-
----
+<br/>
 
 ## 🤝 Contributing
 
-Contributions are welcome! Feel free to:
+```bash
+fork → branch → commit → push → pull request
+```
 
-1. **Fork** the repository
-2. **Create** a feature branch (`git checkout -b feature/amazing-feature`)
-3. **Commit** your changes (`git commit -m 'Add amazing feature'`)
-4. **Push** to the branch (`git push origin feature/amazing-feature`)
-5. **Open** a Pull Request
+All contributions welcome — bug fixes, new models, better features, docs.
 
----
+<br/>
 
 ## 📄 License
 
-This project is licensed under the MIT License — see the [LICENSE](LICENSE) file for details.
+[MIT](LICENSE)
 
----
-
-## 🙏 Acknowledgments
-
-- **NN5 Competition** — For providing the benchmark ATM withdrawal dataset
-- **Monash Time Series Repository** — For hosting the curated `.tsf` format dataset
-- **Optuna** — For Bayesian hyperparameter optimization framework
+<br/>
 
 ---
 
 <div align="center">
 
-**⭐ Star this repo if you found it useful!**
-
-Made with ❤️ for the financial forecasting community
+<sub>Built for the financial forecasting community &nbsp;·&nbsp; If this helped you, leave a ⭐</sub>
 
 </div>
 ]]>
